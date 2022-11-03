@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TarefaService {
 
-    private static TarefaRepository tarefaRepository; //Remover Static?
+    private TarefaRepository tarefaRepository; //Remover Static??
 
     //@Transactional(readOnly = true)
-    public static List<Tarefa> getTarefa(){ //Remover Static?
+    public List<Tarefa> getTarefa(){ //Remover Static??
         return tarefaRepository.findAll();
 
     }
