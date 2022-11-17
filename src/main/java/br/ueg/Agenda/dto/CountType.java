@@ -1,4 +1,4 @@
-package br.ueg.dto;
+package br.ueg.Agenda.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
-package br.ueg.service;
+package br.ueg.Agenda.service;
 
-import br.ueg.dto.CountType;
-import br.ueg.model.Tarefa;
-import br.ueg.repository.TarefaRepository;
+import br.ueg.Agenda.dto.CountType;
+import br.ueg.Agenda.model.Tarefa;
+import br.ueg.Agenda.repository.TarefaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

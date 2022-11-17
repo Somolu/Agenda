@@ -1,4 +1,4 @@
-package br.ueg.config;
+package br.ueg.Agenda.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

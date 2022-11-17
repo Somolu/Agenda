@@ -1,4 +1,4 @@
-package br.ueg.model;
+package br.ueg.Agenda.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
-package br.ueg.controller;
+package br.ueg.Agenda.controller;
 
-import br.ueg.dto.CountType;
-import br.ueg.model.Tarefa;
-import br.ueg.service.TarefaService;
+import br.ueg.Agenda.dto.CountType;
+import br.ueg.Agenda.model.Tarefa;
+import br.ueg.Agenda.service.TarefaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class TarefaController {
         return tarefaService.save(tarefa);
     }
 
-    @GetMapping("/Tarefa")
+    @GetMapping("/Tarefa/{id}")
     public Tarefa getById(@PathVariable Long id) {
 
         return tarefaService.getTarefaById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa solicitada não enconrtrada!"));
