@@ -1,14 +1,16 @@
 package br.ueg.controller;
 
+import br.ueg.dto.CountType;
 import br.ueg.model.Tarefa;
 import br.ueg.service.TarefaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,9 +22,59 @@ public class TarefaController {
     @Autowired
     private TarefaService tarefaService;
 
-    @GetMapping("/Tarefa")
-    private List<Tarefa> getTarefa(){
+    @GetMapping("/Tarefa/vData/percentcounttipo")
+    private List<CountType> getPercentageGroupByTipo() {
+
+        return tarefaService.getPercentageGroupByTipo();
+    }
+
+   @GetMapping("/Tarefa") //Já existem dois @GetMapping?
+    private List<Tarefa> getTarefa() {
+
         return tarefaService.getTarefa();
+    }
+
+    @PostMapping("/Tarefa")
+    public Tarefa addTarefa(@RequestBody Tarefa tarefa) {
+
+        return tarefaService.save(tarefa);
+    }
+
+    @GetMapping("/Tarefa")
+    public Tarefa getById(@PathVariable Long id) {
+
+        return tarefaService.getTarefaById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa solicitada não enconrtrada!"));
+    }
+
+    @PutMapping("/Tarefa/{id}")
+    public ResponseEntity<?> addTarefa(@RequestBody Tarefa tarefaPara, @PathVariable Long id) {
+        if (tarefaService.existById(id)) {
+            Tarefa tarefa = tarefaService.getTarefaById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa solicitada não enconrtrada!"));
+            tarefa.setTitulo(tarefaPara.getTitulo());
+            tarefa.setVenc(tarefaPara.getVenc());
+            tarefa.setTipo(tarefaPara.getTipo());
+            tarefa.setDescricao(tarefaPara.getDescricao());
+
+            return ResponseEntity.ok().body(tarefa);
+        } else {
+            HashMap<String, String> message = new HashMap<>();
+            message.put("message", id + "Tarefa não encontrou correpondencia!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> addTarefa(@PathVariable Long id) {
+        if (tarefaService.existById(id)) {
+            tarefaService.delete(id);
+            HashMap<String, String> message = new HashMap<>();
+            message.put("message", id + "Tarefa deletada!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else {
+            HashMap<String, String> message = new HashMap<>();
+            message.put("message", id + "Tarefa não encontrou correpondencia!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
     }
 }
 
