@@ -69,7 +69,7 @@ public class TarefaController {
             tarefaService.delete(id);
             HashMap<String, String> message = new HashMap<>();
             message.put("message", id + "Tarefa deletada!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            return ResponseEntity.status(HttpStatus.OK).body(message);
         } else {
             HashMap<String, String> message = new HashMap<>();
             message.put("message", id + "Tarefa não encontrou correpondencia!");
